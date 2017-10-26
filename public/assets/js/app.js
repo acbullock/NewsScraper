@@ -31,8 +31,8 @@ $(document).on("click", "p", function() {
       header.html(data.headline);
 
       cardBlockDiv.append(header);
-      cardBlockDiv.append("<input class='form-control' placeholder='Note Title'  id='titleinput' name='title' >");
-      cardBlockDiv.append("<textarea  style='min-height:250px' class='form-control' placeholder='Note Body' id='bodyinput' name='body'></textarea>");
+      cardBlockDiv.append("<input class='form-control' placeholder='Comment Title'  id='titleinput' name='title' >");
+      cardBlockDiv.append("<textarea  style='min-height:250px' class='form-control' placeholder='Comment Body' id='bodyinput' name='body'></textarea>");
       cardBlockDiv.append("<button class='btn btn-primary' data-id='"+data._id+"'  id='savenote'>Save Note</button>");
       if(data.note){
         cardBlockDiv.append("<button class='btn btn-danger' data-id='"+data.note._id+"'  id='deletenote'>Delete Note</button>");

@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var methodOverride = require("method-override");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 // Our scraping tools
@@ -8,7 +9,7 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 // Require all models
-// var db = require("./models");;
+var db = require("./models");;
 
 var PORT = process.env.PORT || 3000;
 
@@ -19,11 +20,23 @@ var app = express();
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
+
+
+
+
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: false }));
-// Use express.static to serve the public folder as a static directory
-app.use(express.static("views"));
 
+// Override various requests..
+app.use(methodOverride("_method"));
+
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
@@ -34,24 +47,15 @@ mongoose.connect(MONGODB_URI, {
 });
 
 
-// Override various requests..
-// app.use(methodOverride("_method"));
 
-// Set Handlebars.
-var exphbs = require("express-handlebars");
+// Import routes and give the server access to them.
+var routes = require("./controllers/routes.js");
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
-// Static directory
-app.use(express.static("public"));
-
-require("./controllers/api-routes.js")(app);
-// // var x = require("./routes/api-routes.js");
-// // console.log(x);
-require("./controllers/html-routes.js")(app);
-
-// Start the server
+app.use("/", routes);
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
+
+
+
+

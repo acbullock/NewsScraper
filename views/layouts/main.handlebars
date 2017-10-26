@@ -7,25 +7,30 @@
   </head>
   <body>
   	<header class="navbar navbar-light bg-faded">
-  		<h1 class="navbar-brand mb-0">NYT Scraper</h1>
+  		<h1 class="navbar-brand mb-0">New York Times Scraper</h1>
   		
   		<div>
   		
 	</header>
-	<div class="jumbotron jumbotron-fluid">
+	<div class="jumbotron jumbotron-fluid text-defaults" style="height:300px;background-image: url('/assets/img/burger.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    background-size: cover;">
   <div class="container">
-    <h1 class="display-3">New York Times Scraper</h1>
-    <p class="lead">Click "Scrape NYT" to scrape the latest articles.</p>
-    <a class="btn btn-success mr-4" href="/api/scrape">Scrape NYT</a></div>
+    <!-- <h1 class="display-3">New York Times Scraper</h1>
+    <p class="lead">Click "Scrape NYT" to scrape the latest articles.</p> -->
+    <a class="btn btn-primary mr-4" href="/api/scrape">Scrape NYT</a></div>
   </div>
 </div>
     <div class="container" id="container">
     <div class="row">
-      <div class="col-md-6 pre-scrollable mb-5" id="articles" style="max-height:500px"></div>
-      <div class="col-md-6" id="notes"></div></div>
+    	{{{body}}}
+      
+      </div>
       
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="/assets/js/app.js"></script>
   </body>
 </html>

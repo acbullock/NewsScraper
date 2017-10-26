@@ -2,52 +2,6 @@
   // When you click the savenote button
 
 // Grab the articles as a json
-$.getJSON("/articles", function(data) {
-  // For each one
-  for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
-    var cardDiv = $("<div>");
-    cardDiv.addClass("card bg-light");
-    cardDiv.addClass("mb-2 p-2");
-    var cardBlockDiv = $("<div>");
-    cardBlockDiv.addClass("card-block");
-    var header = $("<h4>");
-    header.addClass("card-title");
-    header.html(data[i].headline);
-    var byLine = $("<h6>");
-    byLine.html(data[i].byline);
-    byLine.addClass("card-subtitle mb-2 text-muted");
-    var summary = $("<div>");
-    summary.addClass("card-text");
-    summary.html(data[i].summary);
-    var article = $("<a>");
-    article.attr("href", data[i].link);
-    article.attr("target", "_blank");
-    article.html("Go to Article");
-    article.addClass("btn btn-info");
-    
-    var notes = $("<p>");
-    notes.addClass("btn btn-warning");
-    notes.attr("data-id", data[i]._id);
-    notes.html("Article Notes");
-    
-    cardBlockDiv.append(header);
-    cardBlockDiv.append(byLine);
-    cardBlockDiv.append(summary);
-    cardBlockDiv.append(article);
-    cardBlockDiv.append(notes);
-
-    cardDiv.append(cardBlockDiv);
-    $("#articles").append(cardDiv);
-    // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].headline + "<br />" + data[i].link +"<br /><br />" + data[i].byline   +"<br /><br />"  + data[i].summary + "</p>");
-    // $("#articles").append("<a class='btn btn-info' href="+data[i].link+" target='_blank'>Go to article</a>");
-    // $("#articles").append("<button class='btn btn-warning' data-id='"+data[i]._id+"'>Article Notes</button><hr>")
-    // $("#articles").append("<p data-id='" + data[i]._id + "'>Alex</p>");
-
-    
-
-  }
-});
 
 
 // Whenever someone clicks a p tag
@@ -80,6 +34,10 @@ $(document).on("click", "p", function() {
       cardBlockDiv.append("<input class='form-control' placeholder='Note Title'  id='titleinput' name='title' >");
       cardBlockDiv.append("<textarea  style='min-height:250px' class='form-control' placeholder='Note Body' id='bodyinput' name='body'></textarea>");
       cardBlockDiv.append("<button class='btn btn-primary' data-id='"+data._id+"'  id='savenote'>Save Note</button>");
+      if(data.note){
+        cardBlockDiv.append("<button class='btn btn-danger' data-id='"+data.note._id+"'  id='deletenote'>Delete Note</button>");
+      
+      }
       cardDiv.append(cardBlockDiv);
       
       $("#notes").append(cardDiv);
@@ -120,3 +78,29 @@ $(document).on("click", "#savenote", function() {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+
+
+$(document).on("click", "#deletenote", function(){
+  var thisId = $(this).attr("data-id");
+
+      $.ajax({
+    method: "GET",
+    url: "/delete-note/" + thisId
+  })
+    // With that done
+    .done(function(data) {
+      // Log the response
+      
+      // Empty the notes section
+      $("#titleinput").val("");
+  $("#bodyinput").val("");
+      $("#notes").empty();
+    }).catch(function(error){
+      console.log(error);
+    });
+
+  // Also, remove the values entered in the input and textarea for note entry
+  
+});
+
+

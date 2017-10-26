@@ -1,0 +1,22 @@
+<div class="col-sm-6 col-md-8 pre-scrollable mb-5" id="articles" style="max-height:700px">
+{{#each articles}}
+
+<div class="card bg-light mb-2 p-2">
+  <div class="card-block">
+    <h4 class="card-title">{{this.headline}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{this.byline}}</h6>
+    <div class="card-text">
+      {{this.summary}}
+    </div>
+    <a class="btn btn-info" href="{{this.link}}" target="_blank">Go to Article</a>
+    <p class="btn btn-warning" data-id={{this._id}}>Article Note</p>
+  </div>
+
+</div>
+{{/each}}
+
+</div>
+<div class="col-sm-6 col-md-4" id="notes">
+
+</div>
+

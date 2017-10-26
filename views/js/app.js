@@ -7,7 +7,7 @@ $.getJSON("/articles", function(data) {
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
     var cardDiv = $("<div>");
-    cardDiv.addClass("card");
+    cardDiv.addClass("card bg-light");
     cardDiv.addClass("mb-2 p-2");
     var cardBlockDiv = $("<div>");
     cardBlockDiv.addClass("card-block");

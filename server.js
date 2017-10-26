@@ -10,7 +10,7 @@ var cheerio = require("cheerio");
 // Require all models
 // var db = require("./models");;
 
-var PORT = 3000;
+var port = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -26,8 +26,8 @@ app.use(express.static("views"));
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
-var MONGODB_URI = "mongodb://heroku_gstclm7g:7kcn9rkjrg34e9j29ocnpmp7pa@ds125555.mlab.com:25555/heroku_gstclm7g";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
+// var MONGODB_URI = "mongodb://heroku_gstclm7g:7kcn9rkjrg34e9j29ocnpmp7pa@ds125555.mlab.com:25555/heroku_gstclm7g";
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {
   useMongoClient: true
